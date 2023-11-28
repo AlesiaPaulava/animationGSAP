@@ -398,6 +398,7 @@ img {
 .promo {
   position: relative;
   padding-top: 142px;
+  overflow: hidden; /*это св-во для того,чтобы элементы которые в этом блоке расположенны за блоком и вылетают на экран не создавали горизонтальный скролл*/
 }
 
 .promo__top {
@@ -422,6 +423,8 @@ img {
   justify-content: space-between;
   margin-top: 28px;
   max-height: 380px;
+  transform: translateY(100%); /*нужны для анимации, появления*/
+  opacity: 0; /*нужны для анимации, появления*/
   z-index: 1;
 }
 

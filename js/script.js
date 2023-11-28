@@ -51,6 +51,7 @@ function findHeight() {
 function animation() {
   gsap.registerPlugin(ScrollTrigger);
 
+  //Таймлайн для заголовка страницы(анимация)
   const tlPromo = gsap.timeline({})
   tlPromo.to('.promo__title span:first-child', {
     duration: 1.2,
@@ -61,6 +62,38 @@ function animation() {
     duration: 1.2,
     x: 0,
     ease: "back.out(1.1)",
+  }, '<');
+
+  //Анимация для картинок promo и блока header
+  const tlImages = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.promo',
+      start: 'top top',
+      end: '+=50%',
+      scrub: 1,
+      pin: true
+    }
+  })
+  tlImages.to('.promo__bottom', {
+    opacity:1,
+    y: 0
+    })
+  .fromTo('.promo__bottom img', {y: -40}, {
+  y: 40,
   }, '<')
 
+  const tlLines = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.choose__wrap',
+      start: 'top bottom', //начинается анимация когда верх блока choose__wrap совпадет с низом экрана
+      end: 'bottom top', //закончится когда низ блока choose__wrap совпадет с верхом экрана
+      scrub: true
+    }
+  })
+  tlLines.to('.choose__wrap .top', {
+    xPercent: -60
+  })
+  .to('.choose__wrap .bottom', {
+    xPercent: 20
+  }, '<')
 }
