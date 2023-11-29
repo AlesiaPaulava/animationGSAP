@@ -73,15 +73,16 @@ function animation() {
       scrub: 1,
       pin: true
     }
-  })
+  });
   tlImages.to('.promo__bottom', {
     opacity:1,
     y: 0
     })
   .fromTo('.promo__bottom img', {y: -40}, {
   y: 40,
-  }, '<')
+  }, '<');
 
+  //Анимация для секции choose (бегущая строка)
   const tlLines = gsap.timeline({
     scrollTrigger: {
       trigger: '.choose__wrap',
@@ -89,11 +90,39 @@ function animation() {
       end: 'bottom top', //закончится когда низ блока choose__wrap совпадет с верхом экрана
       scrub: true
     }
-  })
+  });
   tlLines.to('.choose__wrap .top', {
     xPercent: -60
   })
   .to('.choose__wrap .bottom', {
     xPercent: 20
-  }, '<')
+  }, '<');
+
+  //Анимация карточек rates__card 
+  gsap.from('.rates__card' , {
+    stagger: 0.3,
+    opacity: 0,
+    yPercent: 100,
+    scrollTrigger: {
+      trigger: '.rates',
+      start: 'top 10%', //20% вниз от края экрана
+      toggleActions: 'play none none reverse'
+    }
+    })
+
+    //Анимация секции plus, горизонтальная прокрутка блоков
+    let sections = gsap.utils.toArray('.plus__block'); //определяем количество блоков с классом plus__block
+    
+    gsap.to(sections, { //к каждому блоку с классом plus__block задаем след.анимацию
+      xPercent: -100 * (sections.length - 1), //сдвигаем блоки на 100% минус 1 блок
+      delay: 0.5, //чтобы горизонтальное перемещение блоков началось с задержкой
+      scrollTrigger: {
+        trigger: '.plus',
+        start: 'top top',
+        end: `+=${sections.length * 1000}`,// количество пикселей, которое будем скролится горизонтально(для нормальной скорости скролла)
+        pin: true,
+        scrub: true,
+        snap: 1 / (sections.length - 1) //помогает доезжать секции самостоятельно
+      }
+      })
 }

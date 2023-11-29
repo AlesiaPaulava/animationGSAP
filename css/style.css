@@ -775,8 +775,20 @@ img {
   }
 }
 
+.plus {
+  height: 100vh;/*для анимации*/
+}
+
+.plus__wrapper {
+  width: 100vw; /*для анимации*/
+  height: 100%;/*для анимации*/
+  display: flex;
+  overflow: hidden;/*для анимации убирает гориз скролл*/
+}
+
 .plus__block {
   display: flex;
+  flex: 0 0 100%;/*для анимации*/
   align-items: center;
 }
 
