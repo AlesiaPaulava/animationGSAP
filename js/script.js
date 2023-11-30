@@ -58,11 +58,11 @@ function animation() {
     x: 0,
     ease: "back.out(1.1)"
   })
-  .to('.promo__title span:last-child', {
-    duration: 1.2,
-    x: 0,
-    ease: "back.out(1.1)",
-  }, '<');
+    .to('.promo__title span:last-child', {
+      duration: 1.2,
+      x: 0,
+      ease: "back.out(1.1)",
+    }, '<');
 
   //Анимация для картинок promo и блока header
   const tlImages = gsap.timeline({
@@ -75,12 +75,12 @@ function animation() {
     }
   });
   tlImages.to('.promo__bottom', {
-    opacity:1,
+    opacity: 1,
     y: 0
-    })
-  .fromTo('.promo__bottom img', {y: -40}, {
-  y: 40,
-  }, '<');
+  })
+    .fromTo('.promo__bottom img', { y: -40 }, {
+      y: 40,
+    }, '<');
 
   //Анимация для секции choose (бегущая строка)
   const tlLines = gsap.timeline({
@@ -94,12 +94,12 @@ function animation() {
   tlLines.to('.choose__wrap .top', {
     xPercent: -60
   })
-  .to('.choose__wrap .bottom', {
-    xPercent: 20
-  }, '<');
+    .to('.choose__wrap .bottom', {
+      xPercent: 20
+    }, '<');
 
   //Анимация карточек rates__card 
-  gsap.from('.rates__card' , {
+  gsap.from('.rates__card', {
     stagger: 0.3,
     opacity: 0,
     yPercent: 100,
@@ -108,21 +108,83 @@ function animation() {
       start: 'top 10%', //20% вниз от края экрана
       toggleActions: 'play none none reverse'
     }
-    })
+  })
 
-    //Анимация секции plus, горизонтальная прокрутка блоков
-    let sections = gsap.utils.toArray('.plus__block'); //определяем количество блоков с классом plus__block
-    
-    gsap.to(sections, { //к каждому блоку с классом plus__block задаем след.анимацию
-      xPercent: -100 * (sections.length - 1), //сдвигаем блоки на 100% минус 1 блок
-      delay: 0.5, //чтобы горизонтальное перемещение блоков началось с задержкой
-      scrollTrigger: {
-        trigger: '.plus',
-        start: 'top top',
-        end: `+=${sections.length * 1000}`,// количество пикселей, которое будем скролится горизонтально(для нормальной скорости скролла)
-        pin: true,
-        scrub: true,
-        snap: 1 / (sections.length - 1) //помогает доезжать секции самостоятельно
-      }
-      })
+  //Анимация секции plus, горизонтальная прокрутка блоков
+  const sections = gsap.utils.toArray('.plus__block'); //определяем количество блоков с классом plus__block
+
+  gsap.to(sections, { //к каждому блоку с классом plus__block задаем след.анимацию
+    xPercent: -100 * (sections.length - 1), //сдвигаем блоки на 100% минус 1 блок
+    delay: 0.5, //чтобы горизонтальное перемещение блоков началось с задержкой
+    scrollTrigger: {
+      trigger: '.plus',
+      start: 'top top',
+      end: `+=${sections.length * 1000}`,// количество пикселей, которое будем скролится горизонтально(для нормальной скорости скролла)
+      pin: true,
+      scrub: true,
+      snap: 1 / (sections.length - 1) //помогает доезжать секции самостоятельно
+    }
+  })
+
+  //Анимация для цвета секции point
+  const tlPoint = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.point',
+      start: 'top center',
+      end: 'bottom bottom',
+      toggleActions: 'play reverse play reverse'
+    }
+  })
+  tlPoint.to('.point', {
+    backgroundColor: '#000',
+  })
+    .to('.point__title', {
+      color: '#fff',
+    }, '<')
+    .to('.point__descr', {
+      color: '#fff',
+    }, '<')
+
+  //Анимация для фото секции point
+  const tlImg = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.point__wrapper',
+      start: 'top top',
+      pin: true,
+      scrub: 1
+    }
+  })
+  tlImg.to('.point__img:first-child img', {
+    scale: 1
+  })
+    .to('.point__img:last-child img', {
+      scale: 0
+    }, '<')
+
+  //Анимация с footer__point
+  gsap.to('.footer__point', {
+    y: 0,
+    scrollTrigger: {
+      trigger: '.main',
+      start: 'top top',
+      end: 'bottom 70%',
+      scrub: true
+    }
+  })
+
+  const tlFooter = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.footer',
+      start: 'top 70%',
+      end: 'bottom bottom',
+      scrub: 1
+    }
+  });
+  tlFooter.to('.footer__point', {
+    scale: 1
+  })
+    .to('.footer__point svg path', {
+      fill: '#FF0027',
+      opacity: 1
+    }, '<')
 }
