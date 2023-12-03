@@ -53,6 +53,134 @@ function animation() {
 
 }
 
+function animSmall() {
+  //Таймлайн для заголовка страницы(анимация)
+  const tlPromo = gsap.timeline({})
+  tlPromo.to('.promo__title span:first-child', {
+    duration: 1.2,
+    x: 0,
+    ease: "back.out(1.1)"
+  })
+    .to('.promo__title span:last-child', {
+      duration: 1.2,
+      x: 0,
+      ease: "back.out(1.1)",
+    }, '<');
+
+  //Анимация для картинок promo и блока header
+  const tlImages = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.promo',
+      start: 'top top',
+      end: '+=50%',
+      scrub: 1
+    }
+  });
+  tlImages.to('.promo__bottom', {
+    opacity: 1,
+    y: 0
+  })
+    .fromTo('.promo__bottom img', { y: -40 }, {
+      y: 40,
+    }, '<');
+
+  //Анимация для секции choose (бегущая строка)
+  const tlLines = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.choose__wrap',
+      start: 'top bottom', //начинается анимация когда верх блока choose__wrap совпадет с низом экрана
+      end: 'bottom top', //закончится когда низ блока choose__wrap совпадет с верхом экрана
+      scrub: true
+    }
+  });
+  tlLines.to('.choose__wrap .top', {
+    xPercent: -60
+  })
+    .to('.choose__wrap .bottom', {
+      xPercent: 20
+    }, '<');
+
+  //Анимация карточек rates__card 
+  gsap.from('.rates__wrap', {
+    yPercent: 50,
+    scrollTrigger: {
+      trigger: '.rates',
+      start: 'top 80%', //20% вниз от края экрана
+      end: 'bottom bottom',
+      scrub: true
+    }
+  })
+
+
+  //Анимация для цвета секции point
+  const tlPoint = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.point',
+      start: 'top center',
+      end: '+=400',
+      toggleActions: 'play reverse play reverse'
+    }
+  })
+  tlPoint.to('body', {  //body для плавной смены цвета секции point
+    backgroundColor: '#000',
+  })
+    .to('.plus-block__text', {
+      color: '#fff',
+    }, '<')
+    .to('.plus-block__title span:last-child', {
+      color: '#fff',
+    }, '<')
+    .to('.point__title', {
+      color: '#fff',
+    }, '<')
+    .to('.point__descr', {
+      color: '#fff',
+    }, '<')
+
+  //Анимация для фото секции point
+  const tlImg = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.point__wrapper',
+      start: 'top center',
+      end: 'bottom top',
+      scrub: 1
+    }
+  })
+  tlImg.to('.point__img:first-child img', {
+    scale: 1
+  })
+    .to('.point__img:last-child img', {
+      scale: 0
+    }, '<')
+
+  //Анимация с footer__point
+  gsap.to('.footer__point', {
+    y: 0,
+    scrollTrigger: {
+      trigger: '.main',
+      start: 'top top',
+      end: 'bottom 70%',
+      scrub: true
+    }
+  })
+
+  const tlFooter = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.footer',
+      start: 'top 70%',
+      end: 'bottom bottom',
+      scrub: 1
+    }
+  });
+  tlFooter.to('.footer__point', {
+    scale: 1
+  })
+    .to('.footer__point svg path', {
+      fill: '#FF0027',
+      opacity: 1
+    }, '<')
+}
+
 let mediaAnimation = gsap.matchMedia();
 
 mediaAnimation.add("(min-width: 1025px)", () => {
@@ -137,7 +265,7 @@ mediaAnimation.add("(min-width: 1025px)", () => {
       trigger: '.point',
       start: 'top center',
       end: 'bottom bottom',
-      toggleActions: 'play reverse play reverse'      
+      toggleActions: 'play reverse play reverse'
     }
   })
   tlPoint.to('body', {  //body для плавной смены цвета секции point
@@ -201,257 +329,9 @@ mediaAnimation.add("(min-width: 1025px)", () => {
 });
 
 mediaAnimation.add("(min-width: 577px) and (max-width: 1024px)", () => {
-  //Таймлайн для заголовка страницы(анимация)
-  const tlPromo = gsap.timeline({})
-  tlPromo.to('.promo__title span:first-child', {
-    duration: 1.2,
-    x: 0,
-    ease: "back.out(1.1)"
-  })
-    .to('.promo__title span:last-child', {
-      duration: 1.2,
-      x: 0,
-      ease: "back.out(1.1)",
-    }, '<');
-
-  //Анимация для картинок promo и блока header
-  const tlImages = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.promo',
-      start: 'top top',
-      end: '+=50%',
-      scrub: 1
-    }
-  });
-  tlImages.to('.promo__bottom', {
-    opacity: 1,
-    y: 0
-  })
-    .fromTo('.promo__bottom img', { y: -40 }, {
-      y: 40,
-    }, '<');
-
-  //Анимация для секции choose (бегущая строка)
-  const tlLines = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.choose__wrap',
-      start: 'top bottom', //начинается анимация когда верх блока choose__wrap совпадет с низом экрана
-      end: 'bottom top', //закончится когда низ блока choose__wrap совпадет с верхом экрана
-      scrub: true
-    }
-  });
-  tlLines.to('.choose__wrap .top', {
-    xPercent: -60
-  })
-    .to('.choose__wrap .bottom', {
-      xPercent: 20
-    }, '<');
-
-  //Анимация карточек rates__card 
-  gsap.from('.rates__wrap', {
-    yPercent: 50,
-    scrollTrigger: {
-      trigger: '.rates',
-      start: 'top 80%', //20% вниз от края экрана
-      end: 'bottom bottom',
-      scrub: true
-    }
-  })
-
-
-  //Анимация для цвета секции point
-  const tlPoint = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.point',
-      start: 'top center',
-      end: '+=400',
-      toggleActions: 'play reverse play reverse'      
-    }
-  })
-  tlPoint.to('body', {  //body для плавной смены цвета секции point
-    backgroundColor: '#000',
-  })
-    .to('.plus-block__text', {
-      color: '#fff',
-    }, '<')
-    .to('.plus-block__title span:last-child', {
-      color: '#fff',
-    }, '<')
-    .to('.point__title', {
-      color: '#fff',
-    }, '<')
-    .to('.point__descr', {
-      color: '#fff',
-    }, '<')
-
-  //Анимация для фото секции point
-  const tlImg = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.point__wrapper',
-      start: 'top center',
-      end: 'bottom top',
-      scrub: 1
-    }
-  })
-  tlImg.to('.point__img:first-child img', {
-    scale: 1
-  })
-    .to('.point__img:last-child img', {
-      scale: 0
-    }, '<')
-
-  //Анимация с footer__point
-  gsap.to('.footer__point', {
-    y: 0,
-    scrollTrigger: {
-      trigger: '.main',
-      start: 'top top',
-      end: 'bottom 70%',
-      scrub: true
-    }
-  })
-
-  const tlFooter = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.footer',
-      start: 'top 70%',
-      end: 'bottom bottom',
-      scrub: 1
-    }
-  });
-  tlFooter.to('.footer__point', {
-    scale: 1
-  })
-    .to('.footer__point svg path', {
-      fill: '#FF0027',
-      opacity: 1
-    }, '<')
+  animSmall();
 });
 
 mediaAnimation.add("(max-width: 576px)", () => {
-  //Таймлайн для заголовка страницы(анимация)
-  const tlPromo = gsap.timeline({})
-  tlPromo.to('.promo__title span:first-child', {
-    duration: 1.2,
-    x: 0,
-    ease: "back.out(1.1)"
-  })
-    .to('.promo__title span:last-child', {
-      duration: 1.2,
-      x: 0,
-      ease: "back.out(1.1)",
-    }, '<');
-
-  //Анимация для картинок promo и блока header
-  const tlImages = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.promo',
-      start: 'top top',
-      end: '+=50%',
-      scrub: 1
-    }
-  });
-  tlImages.to('.promo__bottom', {
-    opacity: 1,
-    y: 0
-  })
-    .fromTo('.promo__bottom img', { y: -40 }, {
-      y: 40,
-    }, '<');
-
-  //Анимация для секции choose (бегущая строка)
-  const tlLines = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.choose__wrap',
-      start: 'top bottom', //начинается анимация когда верх блока choose__wrap совпадет с низом экрана
-      end: 'bottom top', //закончится когда низ блока choose__wrap совпадет с верхом экрана
-      scrub: true
-    }
-  });
-  tlLines.to('.choose__wrap .top', {
-    xPercent: -60
-  })
-    .to('.choose__wrap .bottom', {
-      xPercent: 20
-    }, '<');
-
-  //Анимация карточек rates__card 
-  gsap.from('.rates__wrap', {
-    yPercent: 50,
-    scrollTrigger: {
-      trigger: '.rates',
-      start: 'top 80%', //20% вниз от края экрана
-      end: 'bottom bottom',
-      scrub: true
-    }
-  })
-
-
-  //Анимация для цвета секции point
-  const tlPoint = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.point',
-      start: 'top center',
-      end: '+=400',
-      toggleActions: 'play reverse play reverse'      
-    }
-  })
-  tlPoint.to('body', {  //body для плавной смены цвета секции point
-    backgroundColor: '#000',
-  })
-    .to('.plus-block__text', {
-      color: '#fff',
-    }, '<')
-    .to('.plus-block__title span:last-child', {
-      color: '#fff',
-    }, '<')
-    .to('.point__title', {
-      color: '#fff',
-    }, '<')
-    .to('.point__descr', {
-      color: '#fff',
-    }, '<')
-
-  //Анимация для фото секции point
-  const tlImg = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.point__wrapper',
-      start: 'top center',
-      end: 'bottom top',
-      scrub: 1
-    }
-  })
-  tlImg.to('.point__img:first-child img', {
-    scale: 1
-  })
-    .to('.point__img:last-child img', {
-      scale: 0
-    }, '<')
-
-  //Анимация с footer__point
-  gsap.to('.footer__point', {
-    y: 0,
-    scrollTrigger: {
-      trigger: '.main',
-      start: 'top top',
-      end: 'bottom 70%',
-      scrub: true
-    }
-  })
-
-  const tlFooter = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.footer',
-      start: 'top 70%',
-      end: 'bottom bottom',
-      scrub: 1
-    }
-  });
-  tlFooter.to('.footer__point', {
-    scale: 1
-  })
-    .to('.footer__point svg path', {
-      fill: '#FF0027',
-      opacity: 1
-    }, '<')
+  animSmall();
 });
