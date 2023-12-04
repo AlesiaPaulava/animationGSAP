@@ -50,10 +50,19 @@ function findHeight() {
 
 function animation() {
   gsap.registerPlugin(ScrollTrigger);
-
 }
 
 function animSmall() {
+  gsap.to('.progressbar', {
+      width: '100%',
+      scrollTrigger: {
+        trigger: 'body', 
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true
+      }
+    })
+
   //Таймлайн для заголовка страницы(анимация)
   const tlPromo = gsap.timeline({})
   tlPromo.to('.promo__title span:first-child', {

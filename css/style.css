@@ -75,6 +75,23 @@ img {
   height: auto;
 }
 
+.progressbar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: #FF0027;
+  z-index: 9999;
+}
+
+@media(max-width: 1024px) {
+  .progressbar {
+    display: block;
+  }
+}
+
 .big-title {
   margin: 0;
   width: 100%;
